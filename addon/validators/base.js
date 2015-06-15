@@ -48,7 +48,7 @@ export default Ember.Object.extend({
       }
     });
   },
-  _validate: Ember.on('init', function() {
+  _validate: /*Ember.on('init', */function() {
     this.errors.clear();
     if (this.canValidate()) {
       this.call();
@@ -58,7 +58,7 @@ export default Ember.Object.extend({
     } else {
       return Ember.RSVP.resolve(false);
     }
-  }),
+  }/*)*/,
   canValidate: function() {
     if (typeof(this.conditionals) === 'object') {
       if (this.conditionals['if']) {

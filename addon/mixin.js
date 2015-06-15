@@ -31,8 +31,14 @@ var pushValidatableObject = function(model, property) {
 var lookupValidator = function(validatorName) {
   var container = get(this, 'container');
   var service = container.lookup('service:validations');
-  var cache = get(service, 'cache');
   var validators = [];
+  var cache;
+
+  if (service) {
+    cache = get(service, 'cache');
+  } else {
+    cache = {};
+  }
 
   if (cache[validatorName]) {
     validators = validators.concat(cache[validatorName]);
@@ -156,8 +162,8 @@ export default Ember.Mixin.create(setValidityMixin, {
       return errors;
     });
   },
-  _validate: Ember.on('init', function() {
+  _validate: /*Ember.on('init', */function() {
     var promises = this.validators.invoke('_validate').without(undefined);
     return Ember.RSVP.all(promises);
-  })
+  }/*)*/
 });
